@@ -1,35 +1,48 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
+import AddToList from "./components/AddToList";
+
+// this imports the List function which returns tsx code. We can call it with
+// typing <List> </List> inside our returned tsx.
+import List from "./components/List";
+
+// internal state of component
+interface IState {
+  people: {
+    name: string;
+    age: number;
+    url: string;
+    note?: string;
+  }[];
+}
 
 function App() {
-  const [number, setNumber] = useState(5);
-
-  // const [numOrString, setNumberOrString] = useState<string | number>(5);
+  const [people, setPeople] = useState<IState["people"]>([
+    {
+      name: "firstName",
+      age: 33,
+      note: "always comes 5 min late.",
+      url: "https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0",
+    },
+  ]);
+  // [
+  //     {
+  //       name: "firstName",
+  //       age: 33,
+  //       note: "always comes 5 min late.",
+  //     },
+  //     {
+  //       name: "secondName",
+  //       age: 33,
+  //     },
+  // ]
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>Number is {number}</p>
-        <button onClick={() => setNumber(number + 1)}>
-          Increase Value on Click{" "}
-        </button>
-        <button onClick={() => setNumber(number - 1)}>
-          Decrease Value on Click
-        </button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>People invited to the party</h1>
+      <List people={people} />
+      <AddToList />
     </div>
   );
 }
